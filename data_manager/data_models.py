@@ -4,7 +4,7 @@
 # @File    : data_models.py
 # @Time    : 2019/1/26 14:43
 # @IDE     : PyCharm
-
+from tools import geo_tools
 
 class MCM_NFLIS_Data:
     """
@@ -31,6 +31,8 @@ class MCM_NFLIS_Data:
         self.DrugReports = data_list[7]
         self.TotalDrugReportsCounty = data_list[8]
         self.TotalDrugReportsState = data_list[9]
+        self.latitude, self.longitude = geo_tools.get_geo_info(self.State, self.COUNTY)
+
 
 
 class ACS_5YR_DP02:
