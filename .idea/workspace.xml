@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2572c400-73ba-472f-9d07-ea5bfdc8516e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_10_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_11_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_12_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_13_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_14_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_15_5YR_DP02_with_ann.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ACS_16_5YR_DP02_with_ann.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_manager/data_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/mcm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mcm.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_manager/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_manager/data_manager.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,35 +18,36 @@
     <session id="-1841177998">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="10" />
+          <entry key="py" value="11" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="10" />
+          <entry key="Python" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="24" />
-          <entry key="py" value="2933" />
+          <entry key="py" value="3008" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="24" />
-          <entry key="Python" value="2933" />
+          <entry key="Python" value="3008" />
         </counts>
       </usages-collector>
     </session>
@@ -62,11 +57,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data_manager/data_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2626">
-              <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
-              <folding>
-                <element signature="e#147#158#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1139">
+              <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_manager/data_models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-572">
+              <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -100,14 +101,14 @@
         <option value="$PROJECT_DIR$/data_manager.py" />
         <option value="$PROJECT_DIR$/data_manager/MCM_NFLIS_Date.py" />
         <option value="$PROJECT_DIR$/data_manager/MCM_NFLIS_Data.py" />
-        <option value="$PROJECT_DIR$/data_manager/data_models.py" />
         <option value="$PROJECT_DIR$/data_manager/data_manager.py" />
+        <option value="$PROJECT_DIR$/data_manager/data_models.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="950" />
-    <option name="width" value="979" />
+    <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
@@ -214,7 +215,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3005284" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3005284" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -275,26 +276,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_manager/data_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Test.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/data_manager/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/data_manager/data_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-572">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data_manager/data_manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2626">
-          <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
-          <folding>
-            <element signature="e#147#158#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1139">
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
         </state>
       </provider>
     </entry>
