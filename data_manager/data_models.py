@@ -22,7 +22,8 @@ class MCM_NFLIS_Data:
 
     def __init__(self, data_list):
         self.YYYY = data_list[0]
-        self.State = self.state_converse(data_list[1])
+        # self.State = self.state_converse(data_list[1])
+        self.State = data_list[1]
         self.COUNTY = data_list[2]
         self.FIPS_State = data_list[3]
         self.FIPS_County = data_list[4]
@@ -31,7 +32,7 @@ class MCM_NFLIS_Data:
         self.DrugReports = data_list[7]
         self.TotalDrugReportsCounty = data_list[8]
         self.TotalDrugReportsState = data_list[9]
-        self.latitude, self.longitude = geo_tools.get_geo_info(self.State, self.COUNTY)
+        # self.latitude, self.longitude = geo_tools.get_geo_info(self.State, self.COUNTY)
 
 
 
