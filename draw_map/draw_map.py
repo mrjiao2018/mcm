@@ -94,7 +94,8 @@ def draw_thermodynamic_map(year, type, drug_name):
     for county in counties:
         fips = county.fips
         level_dic = county.spread_level if type=='spread_level' else county.drug_level
-        if level_dic[drug_name] != None:
+        drug_names = list(level_dic.keys())
+        if drug_name in drug_names:
             level = level_dic[drug_name]
         else:
             level = 0
