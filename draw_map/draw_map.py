@@ -7,6 +7,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+
 from mpl_toolkits.basemap import Basemap
 from matplotlib.patches import Polygon
 from matplotlib.colors import rgb2hex
@@ -14,7 +15,13 @@ from matplotlib.collections import PatchCollection
 from matplotlib import pylab
 
 
-def drawing():
+class TestData:
+    def __init__(self, fips, moi):
+        self.FIPS = fips
+        self.MOI = moi
+
+
+def drawing(data_list):
     plt.figure(figsize=(10, 5))
 
     m = Basemap(projection='lcc', lat_0=40, lon_0=-80,
@@ -22,6 +29,7 @@ def drawing():
                 llcrnrlon=-90, urcrnrlon=-73,
                 rsphere=6371200., resolution='l', area_thresh=10000)
     m.drawcounties()
+    m.drawstates()
     m.drawcoastlines()
     m.drawmapboundary()
     parallels = np.arange(0, 90, 10.)
@@ -35,28 +43,33 @@ def drawing():
     colors = {}
     patches = []
     index_list = list()
+    cmap = plt.cm.YlOrRd
+    vmin_ele = min(data_list, key=lambda ele: ele.MOI)
+    vmin = vmin_ele.MOI
+    vmax_ele = max(data_list, key=lambda ele: ele.MOI)
+    vmax = vmax_ele.MOI
 
     index = 0
     for county in m.counties_info:
-        if county['STATE_FIPS'] != '21' or '39' or '42' or '51' or '54':
-            index += 1
-        else:
+        if county['STATE_FIPS'] in {'21', '39', '42', '51', '54'}:
             county_FIPS = county['FIPS']
-            county_FIPS_list.append(county_FIPS)
-            index_list.append(index)
-            # get the main attribute and normalize the data
-            # number = datalist[][county_FIPS]
-            # colors[county_FIPS] = cmap(np.sqrt((number - vmin) / (vmax - vmin)))[:3]
-            index += 1
+            for i in data_list:
+                if str(i.FIPS) == county_FIPS:
+                    moi = i.MOI
+                    colors[county_FIPS] = cmap(np.sqrt((moi - vmin) / (vmax - vmin)))
+                    county_FIPS_list.append(county_FIPS)
+                    index_list.append(index)
+        index += 1
     ax = plt.gca()
     index = 0
+
     for nshape, seg in enumerate(m.counties):
         if nshape in index_list:
             color = rgb2hex(colors[county_FIPS_list[index]])
             poly = Polygon(seg, facecolor=color, edgecolor=color)
+            index += 1
             patches.append(poly)
             ax.add_patch(poly)
-            index += 1
 
     # add colorbar
     colors1 = [i[1] for i in colors.values()]
@@ -69,4 +82,13 @@ def drawing():
 
 
 if __name__ == "__main__":
-    drawing()
+    td0 = TestData(21009, 383)
+    td1 = TestData(21013, 387)
+    td2 = TestData(21019, 504)
+    td3 = TestData(21037, 852)
+    td_list = list()
+    td_list.append(td0)
+    td_list.append(td1)
+    td_list.append(td2)
+    td_list.append(td3)
+    drawing(td_list)
