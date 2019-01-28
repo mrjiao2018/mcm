@@ -10,24 +10,31 @@ from tools import geo_tools
 CFG = model_config.cfg
 
 class County():
-    def __init__(self, county, state, year, fips, total_drug_reports_county, drug_level):
+    def __init__(self, county, state, year, fips, total_drug_reports_county, drug_level,
+                 spread_level=None, latitude=None, longtitude=None, neighbors=None,
+                 east_spread_level=None, west_spread_level=None,
+                 north_spread_level=None, south_spread_level=None):
         self.county = county
         self.state = state
         self.year = year
         self.fips = fips
         self.total_drug_reports_county = total_drug_reports_county
-        self.latitude, self.longitude = geo_tools.get_geo_info(state=self.state, county=self.county)
+        if latitude==None and longtitude==None:
+            self.latitude, self.longitude = geo_tools.get_geo_info(state=self.state, county=self.county)
+        else:
+            self.latitude = latitude
+            self.longitude = longtitude
         # drug_level为城市毒品报告数量，key为毒品名称，value为毒品报告数量
         self.drug_level = drug_level
         # spread_level为城市毒品报告数量等强度向周围传播的情况下的传播强度参数，key为毒品名称，value为毒品传播强度参数
-        self.spread_level = self._init_spread_level()
+        self.spread_level = self._init_spread_level() if spread_level==None else spread_level
         # 以下为城市毒品报告数量不等强度(不同方向的强度不同)向周围传播的情况下的传播强度参数，key为毒品名称，value为毒品传播强度参数
-        self.east_spread_level = self._init_spread_level()
-        self.west_spread_level = self._init_spread_level()
-        self.north_spread_level = self._init_spread_level()
-        self.south_spread_level = self._init_spread_level()
+        self.east_spread_level = self._init_spread_level() if east_spread_level==None else east_spread_level
+        self.west_spread_level = self._init_spread_level() if west_spread_level==None else west_spread_level
+        self.north_spread_level = self._init_spread_level() if north_spread_level==None else north_spread_level
+        self.south_spread_level = self._init_spread_level() if south_spread_level==None else south_spread_level
         # 临近城市集合，存储为fips_combined code
-        self.neighbors = []
+        self.neighbors = [] if neighbors==None else neighbors
 
     def _init_spread_level(self):
         spread_level = {}
@@ -41,9 +48,11 @@ class County():
 
 
 if __name__ == '__main__':
-    drug_level = {'drug':123, 'medical':456}
-
-    spread_level = {}
-    drugs = drug_level.keys()
-    spread_level.__setitem__("123", 123)
-    print(spread_level)
+    # drug_level = {'drug':123, 'medical':456}
+    #
+    # spread_level = {}
+    # drugs = drug_level.keys()
+    # spread_level.__setitem__("123", 123)
+    # print(spread_level)
+    a = 1 if 1<0 else 0
+    print(a)

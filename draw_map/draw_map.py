@@ -8,6 +8,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from tools import data_tools
 from mpl_toolkits.basemap import Basemap
 from matplotlib.patches import Polygon
 from matplotlib.colors import rgb2hex
@@ -80,15 +81,59 @@ def drawing(data_list):
 
     plt.show()
 
+def draw_thermodynamic_map(year, type, drug_name):
+    """
+    绘制热力图
+    :param year: 年份
+    :param type: 热力图种类，可选值："spread_level"，"drug_level"
+    :param drug_name: 可选值："Heroin", "Oxycodone", "Buprenorphine"等，详情参见excel中SubstanceName
+    :return:
+    """
+    point = []
+    counties = data_tools.get_counties_from_json('../datasets/handled_data/{:d}.json'.format(year))
+    for county in counties:
+        fips = county.fips
+        level_dic = county.spread_level if type=='spread_level' else county.drug_level
+        if level_dic[drug_name] != None:
+            level = level_dic[drug_name]
+        else:
+            level = 0
+        point.append(fips, level)
+
+    drawing(point)
+
+def draw_total_thermodynamic_map(year):
+    """
+    绘制county的指定年份药品报告总量热力图
+    :param year: 年份
+    :return:
+    """
+    point = []
+    counties = data_tools.get_counties_from_json('../datasets/handled_data/{:d}.json'.format(year))
+    for county in counties:
+        fips = county.fips
+        level = county.total_drug_reports_county
+        point.append(fips, level)
+
+    drawing(point)
 
 if __name__ == "__main__":
-    td0 = TestData(21009, 383)
-    td1 = TestData(21013, 387)
-    td2 = TestData(21019, 504)
-    td3 = TestData(21037, 852)
-    td_list = list()
-    td_list.append(td0)
-    td_list.append(td1)
-    td_list.append(td2)
-    td_list.append(td3)
-    drawing(td_list)
+    # td0 = TestData(21009, 383)
+    # td1 = TestData(21013, 387)
+    # td2 = TestData(21019, 504)
+    # td3 = TestData(21037, 852)
+    # td_list = list()
+    # td_list.append(td0)
+    # td_list.append(td1)
+    # td_list.append(td2)
+    # td_list.append(td3)
+    # drawing(td_list)
+
+    # 绘制2012年的海洛因的传播(spread_level)热力图
+    draw_thermodynamic_map(year=2012, type='spread_level', drug_name='Heroin')
+
+    # 绘制2016年的海洛因的报告数量(drug_level)热力图
+    draw_thermodynamic_map(year=2012, type='drug_level', drug_name='Heroin')
+
+    # 绘制2017年的各个county的药品报告热力图
+    draw_total_thermodynamic_map(year=2017)

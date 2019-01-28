@@ -8,6 +8,7 @@ from data_manager import county
 from data_manager import data_manager
 from tools import geo_tools
 from config import model_config
+import json
 CFG = model_config.cfg
 
 def get_all_counties1(data):
@@ -96,9 +97,11 @@ def get_counties(data, year):
         counties.append(county_obj)
         i = i + 1
         print("initialize counties, now {:d} counties has been initialized".format(i))
+        # 函数执行时间太长，直接将结果存储
+        store_counties2json(counties, '../datasets/handled_data/{:d}.json'.format(year))
 
-
-    return get_neighbor_counties(counties)
+    #return get_neighbor_counties(counties)
+    return counties
 
 def get_neighbor_counties(counties):
     """
@@ -118,16 +121,72 @@ def get_neighbor_counties(counties):
                 continue
 
             distance = geo_tools.get_distance(lat1=lat1, lon1=lon1, lat2=lat2, lon2=lon2)
-            if distance > 0 and distance < CFG.DISANCE_THRESHOLD:
+            if distance > 0 and distance < CFG['DISANCE_THRESHOLD']:
                 county.neighbors.append(other_county.fips)
 
     return counties
 
+def store_counties2json(counties, file_path):
+    new_counties = []
+    for county in counties:
+        new_county = {
+            'state':county.state,
+            'county':county.county,
+            'fips':county.fips,
+            'year':county.year,
+            'total_drug_reports_county':county.total_drug_reports_county,
+            'latitude':county.latitude,
+            'longitude':county.longitude,
+            'drug_level':county.drug_level,
+            'spread_level':county.spread_level,
+            'neighbors':county.neighbors
+        }
+        new_counties.append(new_county)
+
+    json_obj = json.dumps(new_counties)
+    f = open(file_path, 'w')
+    f.write(json_obj)
+    f.close()
+
+def get_counties_from_json(file_path):
+    counties = []
+    f = open(file_path)
+    json_objs = json.load(f)
+    for json_obj in json_objs:
+        county_name = json_obj['county']
+        state = json_obj['state']
+        year = json_obj['year']
+        fips = json_obj['fips']
+        total_drug_reports_county = json_obj['total_drug_reports_county']
+        latitude = json_obj['latitude']
+        longitude = json_obj['longitude']
+        drug_level = json_obj['drug_level']
+        spread_level = json_obj['spread_level']
+        neighbors = json_obj['neighbors']
+        county_obj = county.County(county=county_name,state=state,year=year,fips=fips,
+                                   total_drug_reports_county=total_drug_reports_county,
+                                   latitude=latitude, longtitude=longitude,
+                                   drug_level=drug_level, spread_level=spread_level,
+                                   neighbors=neighbors)
+        counties.append(county_obj)
+
+    return counties
+
+def find_county_by_fips(counties, fips):
+    for county in counties:
+        if county.fips == fips:
+            return county
+        else:
+            continue
+
 if __name__ == '__main__':
-    data = data_manager.read_xlsx()
-    # counties1 = get_all_counties1(data)
-    # counties2 = get_all_counties2(data)
-    # drugs = get_all_drugs(data)
-    # counties_records = get_counties_records(data)
-    counties = get_counties(data, 2016)
-    a = 0
+    # data = data_manager.read_xlsx()
+    # counties = get_counties(data, 2017)
+
+    # counties = [county.County(fips=123, state='VA', county='WRPPER', drug_level={'drug1':123},
+    #                            total_drug_reports_county=123, year=2016)]
+    # file_path = '../data_manager/test.json'
+    # store_counties2json(counties, file_path)
+
+    counties = get_counties_from_json('../datasets/handled_data/2010.json')
+    a=0
