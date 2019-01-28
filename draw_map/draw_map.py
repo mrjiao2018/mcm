@@ -98,7 +98,7 @@ def draw_thermodynamic_map(year, type, drug_name):
             level = level_dic[drug_name]
         else:
             level = 0
-        point.append(fips, level)
+        point.append(TestData(fips, level))
 
     drawing(point)
 
@@ -113,7 +113,7 @@ def draw_total_thermodynamic_map(year):
     for county in counties:
         fips = county.fips
         level = county.total_drug_reports_county
-        point.append(fips, level)
+        point.append(TestData(fips, level))
 
     drawing(point)
 
